@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#06090f">
+  <title>Stocklens · Market terminal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b8e71'/%3E%3Cpath d='M8 9h17M8 15h12M8 21h7' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <aside class="rail" aria-label="Dashboard tools">
+    <a class="brand-icon" href="/" aria-label="Stocklens home"><span></span><span></span><span></span></a>
+    <div class="rail-divider"></div>
+    <button class="rail-button active" data-action="reset" aria-label="Market dashboard" title="Market dashboard"></button>
+    <button class="rail-button" data-action="watchlist" aria-label="Show watchlist" title="Watchlist"></button>
+    <button class="rail-button" data-action="help" aria-label="How to read this dashboard" title="How to read the board"></button>
+    <div class="rail-bottom">
+      <button class="rail-button" data-action="theme" aria-label="Toggle dark theme" title="Switch theme"></button>
+      <span class="avatar" title="Local preview">V</span>
+    </div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar">
+      <a class="wordmark" href="/">Stocklens<span class="wordmark-divider"></span><span class="product-label">MARKET INTELLIGENCE</span></a>
+      <div class="terminal-tools"><span class="visual-label"><i></i>Illustrative flow</span><div class="feed-modes"><button id="preview-mode" class="active">Preview layout</button><button id="live-mode">Live data</button></div><button id="connect-feed" class="connect-button">Connect Upstox ↗</button><button id="motion-toggle" class="icon-button" aria-pressed="false" aria-label="Pause decorative motion">Ⅱ</button></div>
+      <div class="indices" aria-label="Illustrative index values">
+        <div><span>NIFTY 50</span><strong>25,285.35</strong><small class="up">+0.82%</small></div>
+        <div><span>BANK NIFTY</span><strong>56,721.80</strong><small class="up">+0.64%</small></div>
+        <div><span>INDIA VIX</span><strong>11.24</strong><small class="down">−2.16%</small></div>
+      </div>
+      <button class="sample-status" data-action="help"><span class="status-dot"></span>Demo mode <span class="info-small">i</span></button>
+    </header>
+    <main class="lens-terminal">
+      <div class="terminal-heading"><div><h1>Market lens</h1><p>A clearer view of stock performance.</p></div></div>
+      <div class="feed-notice" id="feed-notice"><span class="feed-notice-icon">◉</span><span id="feed-message">Preview quotes · Connect your free Upstox Analytics Token to replace these with real market data.</span><button id="feed-help">Setup →</button></div>
+      <section class="toolbar" aria-label="Dashboard filters"><div class="segmented" role="group" aria-label="Market direction"><button class="selected" data-filter="all">Universe <span>213</span></button><button data-filter="bull">Buying <span>10</span></button><button data-filter="bear">Selling <span>10</span></button></div><div class="toolbar-right"><label class="search"><span id="search-icon"></span><input id="stock-search" type="search" placeholder="Find a stock…" autocomplete="off" aria-label="Search stocks"><kbd>/</kbd></label><label class="sr-only" for="sector-filter">Filter by sector</label><select id="sector-filter"><option value="all">All sectors</option></select><button class="icon-button" id="refresh" aria-label="Reset sample session" title="Reset filters"></button><button class="icon-button" id="fullscreen" aria-label="Expand dashboard"></button></div></section>
+      <section class="market-breadth"><div><span class="breadth-kicker">MARKET DISTRIBUTION</span><div class="breadth-labels"><span id="lagging">SELLING</span><span id="leading">BUYING</span></div><svg id="breadth-svg" viewBox="0 0 800 91" role="img" aria-label="Distribution of shortlisted stock movements"></svg></div><div class="breadth-counts"><div><span class="up">↗ BUYING</span><strong id="bull-count" class="up">10</strong></div><div><span class="down">↘ SELLING</span><strong id="bear-count" class="down">10</strong></div></div><div class="board-stat"><strong id="picks-number">10</strong><span>RANKED OUTPUTS</span><small>Top 3 on each side highlighted</small></div></section>
+      <div class="board-column-headings"><span>SECTOR FLOW</span><span>VISUAL MOMENTUM FLOW <small>Conceptual connections</small></span><span>40 STOCK PROFILES</span><span>TOP BUYING / SELLING <small>3 + 3 ranked cards</small></span></div>
+      <section class="lens-canvas" aria-label="Stocklens sector-to-stock flow dashboard">
+        <svg id="flow-svg" class="flow-svg" aria-hidden="true"></svg>
+        <aside class="sector-column"><div class="micro-heading">SECTORS <span id="clear-sector" hidden>Reset</span></div><div id="sector-list"></div><div class="diagram-key"><span><i class="green-dot"></i>Buying momentum</span><span><i class="pink-dot"></i>Selling momentum</span><small>The connecting flow is illustrative.</small></div></aside>
+        <div class="flow-region"><div class="flow-caption"><span>COLLECT</span><span>COMPARE</span><span>FOCUS</span></div><div class="flow-centre-label">MOMENTUM<br><b>IN FOCUS</b></div><div class="flow-bottom-label"><span>Sector context</span><span>20 candidates →</span></div><button id="clear-selection" hidden>Clear selection ×</button><div id="chart-tooltip" class="chart-tooltip" hidden></div><span id="plot-count" class="sr-only"></span><div id="chart-empty" class="chart-empty" hidden>No matching stocks</div></div>
+        <section class="stock-strip" aria-labelledby="stocks-title"><div class="shortlist-heading"><h2 id="stocks-title">Shortlist</h2><button class="text-button" id="watchlist-toggle">★ <span id="watchlist-count">0</span></button></div><span id="radar-subtitle" class="sr-only"></span><div id="radar-grid"></div><button id="load-more" hidden></button></section>
+        <section class="picks-panel" aria-labelledby="picks-title"><h2 id="picks-title" class="sr-only">Top six highlighted stocks</h2><div id="stock-cards"></div></section>
+      </section>
+      <footer><span><span class="tiny-brand"></span>Stocklens <span class="footer-light">· Market intelligence</span></span><span id="data-footer">Preview quotes · Illustrative connecting flow</span><span id="snapshot-stamp">Awaiting provider</span><button class="text-button" data-action="help">Read the board ↗</button></footer>
+      <div class="legacy-controls" hidden><span id="demo-date"></span><span id="session-time"></span><span class="calendar-icon"></span><button id="replay-toggle"></button><input id="replay-range" type="range" min="1" max="75" value="75"><span id="replay-time"></span><div id="market-svg"></div><button id="run-scan"></button><span id="scan-status"></span><span id="scan-countdown"></span></div>
+    </main>
+  </div>
+  <dialog id="connect-dialog"><div class="help-content"><button class="dialog-close icon-button" data-close="connect-dialog" aria-label="Close live data setup">×</button><div class="eyebrow">REAL MARKET DATA</div><h2>Connect the feed.</h2><p>Upstox offers a free, read-only Analytics Token for market quotes, historical candles and WebSocket streaming.</p><div class="help-item"><span>01</span><div><h3>Create your Analytics Token</h3><p>Sign in to Upstox Developer Apps → Analytics → Generate Token. Keep the token private.</p></div></div><div class="help-item"><span>02</span><div><h3>Configure the local backend</h3><p>Add the token to the server environment as UPSTOX_ACCESS_TOKEN. It stays on your computer and is never sent to this page.</p></div></div><div class="help-item"><span>03</span><div><h3>Start the live connection</h3><p>Run the included server.py, then select Live data. Cards update from received quotes, with provider timestamps. Missing analytics remain unavailable.</p></div></div><div class="help-note" id="provider-status">Waiting for an Upstox account and token. The live provider connection has not been authenticated.</div><a class="primary-button" style="display:block;text-align:center" href="https://account.upstox.com/developer/apps" target="_blank" rel="noopener">Open Upstox Developer Apps ↗</a></div></dialog>
+  <dialog id="stock-dialog" aria-labelledby="detail-title"><div class="detail-content" id="detail-content"></div></dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title"><div class="help-content"><button class="dialog-close icon-button" data-close="help-dialog" aria-label="Close dashboard guide">×</button><div class="eyebrow">A QUICK GUIDE</div><h2 id="help-title">Read the market,<br>at a glance.</h2><p>Follow sectors on the left through the conceptual connecting flow to up to 40 compact stock profiles and six ranked outputs. The top three on each side are highlighted. Preview mode uses fixtures. Live mode only displays received provider data.</p><div class="help-item"><span>01</span><div><h3>See the bigger picture</h3><p>The dots show stock movements. The session lines compare each stock with its opening price. Click a sector to narrow the view.</p></div></div><div class="help-item"><span>02</span><div><h3>Find a stronger setup</h3><p>Green cards show upward sample trends; pink cards show downward trends. Click a stock to inspect its candles, zones and levels.</p></div></div><div class="help-item"><span>03</span><div><h3>Explore the shortlist</h3><p>Search with /, filter a sector or direction, and save stocks with the star. Open a card to inspect its details; Escape closes the popup.</p></div></div><div class="help-note">A live version needs an approved data feed and independently validated analytical rules.</div><button class="primary-button" data-close="help-dialog">Back to the market →</button></div></dialog>
+  <div class="toast" role="status" id="toast"></div>
+</body>
+</html>

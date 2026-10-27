@@ -1,0 +1,22 @@
+# Credentials and private runtime data
+.env
+.env.*
+!.env.example
+.private/
+*.sqlite*
+*.db
+*.db-*
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+# Local tooling and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+node_modules/
+.DS_Store
+work/
+*.zip
